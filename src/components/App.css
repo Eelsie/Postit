@@ -1,0 +1,41 @@
+@import "../styles/colors.css";
+@import "../styles/typography.css";
+
+.component {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.component_item {
+  display: flex;
+  flex: 1 300px;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--silver);
+  margin: 15px;
+  padding: 25px 15px;
+}
+
+.component_item:last-child{
+  flex-grow: 0.1;
+}
+
+.title {
+  font-family: var(--pt-serif);
+  font-size: rem(36px);
+  text-align: center;
+}
+
+.board_title {
+  font-family: var(--pt-serif);
+  font-size: rem(18px);
+}
+
+.wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
