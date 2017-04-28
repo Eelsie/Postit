@@ -1,41 +1,86 @@
 @import "../styles/colors.css";
 @import "../styles/typography.css";
 
+body {
+  background-color: #E6E6EA;
+}
+
 .component {
   display: flex;
+  flex-wrap: nowrap;
   flex: 1;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .component_item {
+  width: 200px;
   display: flex;
-  flex: 1 300px;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--silver);
+  flex: 1;
+  flex-direction: column;
+  background-color: #fff;
   margin: 15px;
-  padding: 25px 15px;
+  padding: 25px 25px 15px 25px;
+  box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.1);
 }
 
-.component_item:last-child{
-  flex-grow: 0.1;
+.component_item:first-child {
+  margin-left: 0;
+}
+
+.title, .board_title, .notes label {
+  font-family: var(--pt-serif);
 }
 
 .title {
-  font-family: var(--pt-serif);
-  font-size: rem(36px);
-  text-align: center;
+  font-size: rem(40px);
 }
 
 .board_title {
-  font-family: var(--pt-serif);
-  font-size: rem(18px);
+  font-size: rem(22px);
 }
 
 .wrapper {
-  max-width: 1000px;
-  margin: 0 auto;
+  margin: 25px;
+}
+
+.notes {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 35px;
+}
+
+.notes_item label {
+  margin-left: 6px;
+}
+
+.notes_item {
+  padding: 30px 0 7px 0;
+  border-bottom: 1px dotted #FCA5A5;
+}
+
+.lnr-trash:hover, .lnr-pencil:hover {
+  color: #FCA5A5;
+}
+
+.btn_icon {
+  font-family: 'Linearicons-Free';
+  border: none;
+  background-color: #fff;
+  display: inline-block;
+  float: right;
+  color: #333;
+  font-size: 16px;
+}
+
+.smaller {
+  font-size: 14px;
+}
+
+.btn_icon:hover {
+  color: #FCA5A5;
+}
+
+.btn_icon:focus {
+  outline: none;
 }
