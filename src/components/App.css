@@ -84,3 +84,22 @@ body {
 .btn_icon:focus {
   outline: none;
 }
+
+input {
+  outline: none;
+  border: none;
+}
+
+form .board_title {
+  margin-top: 21px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 6px;
+  background-color: #AA3939;
+  color: #fff;
+  border: none;
+  width: 80px;
+  font-size: 13px;
+}
