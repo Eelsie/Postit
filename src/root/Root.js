@@ -4,7 +4,6 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import {Router} from 'react-router'
 import routes from './routes'
-import App from '../components/app'
 
 export type RootProps = {
   history: any,

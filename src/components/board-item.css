@@ -1,0 +1,81 @@
+@import "../styles/general.css";
+
+.board_title {
+  font-size: rem(22px);
+  font-weight: bold;
+}
+
+.notes {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 35px;
+}
+
+.notes_item label {
+  margin-left: 6px;
+}
+
+.notes_item {
+  padding: 30px 0 7px 0;
+  border-bottom: 1px dotted var(--orange);
+}
+
+.lnr-trash:hover, .lnr-pencil:hover {
+  color: #FCA5A5;
+}
+
+.btn_icon {
+  font-family: 'Linearicons-Free';
+  border: none;
+  background-color: #fff;
+  display: inline-block;
+  float: right;
+  color: #333;
+  font-size: 16px;
+}
+
+.smaller_icon {
+  font-size: 14px;
+  display: none;
+  color: var(--lighter-orange);
+}
+.notes_item:hover .smaller_icon {
+  display: inline;
+}
+
+.btn_icon:hover {
+  color: var(--lighter-orange);
+}
+
+.btn_icon:focus {
+  outline: none;
+}
+
+input {
+  outline: none;
+  border: none;
+}
+
+form .board_title {
+  margin-top: 21px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 6px 6px 3px 0;
+  background-color: transparent;
+  color: var(--orange);
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.btn:hover {
+  color: var(--lighter-orange);
+}
+
+.btn:focus {
+  outline: none;
+  color: var(--lighter-orange);
+}

@@ -1,0 +1,33 @@
+@import "../styles/colors.css";
+@import "../styles/typography.css";
+
+body {
+  background-color: #E6E6EA;
+}
+
+.component {
+  display: flex;
+  flex-wrap: nowrap;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.component_item {
+  width: 200px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #fff;
+  margin: 15px;
+  padding: 25px 25px 15px 25px;
+  box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.1);
+}
+
+.component_item:first-child {
+  margin-left: 0;
+}
+
+.title, .board_title, .notes label, .btn {
+  font-family: var(--pt-serif);
+}

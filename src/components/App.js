@@ -13,6 +13,7 @@ class App extends Component {
     this.fetchBoards = this.fetchBoards.bind(this)
     this.handleRemoveBoard = this.handleRemoveBoard.bind(this)
     this.handleRemoveNote = this.handleRemoveNote.bind(this)
+    this.handleAddBoard = this.handleAddBoard.bind(this)
   }
 
   componentWillMount() {
@@ -56,11 +57,24 @@ class App extends Component {
     })
   }
 
+  handleAddBoard(text) {
+    fetch(`http://localhost:1337/boards/`, {
+      method: 'POST',
+      body: JSON.stringify({'name': text}),
+    }).then(() => {
+      fetch('http://localhost:1337/boards')
+        .then((response) => response.json())
+        .then((boards) => {
+          this.setState({boards})
+        })
+    })
+  }
+
   render() {
     return (
       <div className={css.wrapper}>
         <h1 className={css.title}>Post-it App</h1>
-        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote}/>
+        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard}/>
       </div>
     )
   }

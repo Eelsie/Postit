@@ -1,5 +1,5 @@
 import React from 'react'
-import css from './App.css'
+import css from './board-item.css'
 
 type Props = {
   name: string,
@@ -20,6 +20,10 @@ const BoardItem = (props: Props) => {
     props.handleRemoveNote(id)
   }
 
+  const addNote = (e) => {
+    e.preventDefault()
+  }
+
   return (
     <div className={css.component_item}>
         <h3 className={css.board_title}>{props.name}</h3>
@@ -27,11 +31,12 @@ const BoardItem = (props: Props) => {
         {filteredNotes.map((note) =>
           <div className={css.notes_item}>
             <input type="checkbox" value="None" name="check" />
-            <label key={note.id}>{note.message} <span onClick={(e) => removeNote(note.id, e)} className={`${css.btn_icon} ${css.smaller}`}>&#xe811;</span> </label>
+            <label key={note.id}>{note.message} <span onClick={(e) => removeNote(note.id, e)} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe811;</span> </label>
           </div>
         )}
       </div>
       <div>
+        <button onClick={addNote} className={css.btn}>Add a note</button>
         <button className={css.btn_icon}>&#xe802;</button>
         <button onClick={removeBoard} className={css.btn_icon}>&#xe811;</button>
       </div>
