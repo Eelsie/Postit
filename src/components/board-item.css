@@ -64,7 +64,7 @@ form .board_title {
 }
 
 .btn {
-  padding: 6px 6px 3px 0;
+  padding: 6px 0 3px 0;
   background-color: transparent;
   color: var(--orange);
   border: none;
@@ -80,4 +80,12 @@ form .board_title {
 .btn:focus {
   outline: none;
   color: var(--lighter-orange);
+}
+
+.btn_save_note {
+  float: right;
+}
+
+.notes_item input[type=text] {
+  color: #777;
 }

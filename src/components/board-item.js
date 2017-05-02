@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import CreateNote from './create-note'
+import NoteItem from './note-item'
 import css from './board-item.css'
 
 type Props = {
@@ -18,33 +19,17 @@ class BoardItem extends Component {
 
     this.state = {
       editableAddNote: false,
-      editableEditNote: false,
     }
 
     this.removeBoard = this.removeBoard.bind(this)
-    this.removeNote = this.removeNote.bind(this)
     this.addNote = this.addNote.bind(this)
     this.handleStateAddNote = this.handleStateAddNote.bind(this)
-    this.editNote = this.editNote.bind(this)
 
   }
 
   removeBoard(e) {
     e.preventDefault()
     this.props.handleRemoveBoard(this.props.id)
-  }
-
-  removeNote(id, e) {
-    e.preventDefault()
-    this.props.handleRemoveNote(id)
-  }
-
-  editNote(id, e) {
-    e.preventDefault()
-    this.setState({
-      editableEditNote: true,
-    })
-    this.props.handleEditNote(id)
   }
 
   addNote(e) {
@@ -80,15 +65,7 @@ class BoardItem extends Component {
         </div>
         <h3 className={css.board_title}>{this.props.name}</h3>
         <div className={css.notes}>
-          {filteredNotes.map((note) =>
-            <div className={css.notes_item}>
-              <input type="checkbox" value="None" name="check" />
-              <label key={note.id}>{note.message}
-                <span onClick={(e) => this.removeNote(note.id, e)} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe811;</span>
-                <span onClick={(e) => this.editNote(note.id, e)} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe802;</span>
-              </label>
-            </div>
-          )}
+          {filteredNotes.map((note) => <NoteItem key={note.id} {...note} handleEditNote={this.props.handleEditNote} handleRemoveNote={this.props.handleRemoveNote}/>)}
         </div>
         {newNote}
         {buttonAddNote}

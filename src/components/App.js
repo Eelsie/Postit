@@ -86,10 +86,20 @@ class App extends Component {
     })
   }
 
-  handleEditNote(id) {
-    console.log(id)
-
+  handleEditNote(id, text) {
+    fetch(`http://localhost:1337/notes/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({'message': text}),
+    }).then(() => {
+      let index = this.state.notes.findIndex((el) => el.id === id)
+      const {notes} = this.state
+      notes[index].message = text
+      this.setState({
+        notes,
+      })
+    })
   }
+
 
   render() {
     return (
