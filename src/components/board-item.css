@@ -1,9 +1,15 @@
 @import "../styles/general.css";
 
+.title {
+  margin: 20px 0;
+}
+
 .board_title {
   font-size: rem(22px);
   font-weight: bold;
-  margin-top: 10px;
+  margin: 0;
+  display: inline-block;
+  width: 78%;
 }
 
 .notes {
@@ -58,11 +64,6 @@ input {
   border: none;
 }
 
-form .board_title {
-  margin-top: 21px;
-  margin-bottom: 20px;
-}
-
 .btn {
   padding: 6px 0 3px 0;
   background-color: transparent;
@@ -86,6 +87,10 @@ form .board_title {
   float: right;
 }
 
-.notes_item input[type=text] {
+.notes_item input[type=text], .narrow {
   color: #777;
+}
+
+.narrow {
+  width: 80%;
 }

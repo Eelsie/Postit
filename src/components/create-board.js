@@ -15,10 +15,13 @@ const CreateBoard = (props) => {
   }
 
   return (
-    <form className={css.component_item} onSubmit={handleSubmit}>
-      <input className={css.board_title} placeholder="Add a new post-it" ref={ el => inputText = el } />
-      <button className={css.btn}>Add</button>
-    </form>
+    <div className={css.component_item}>
+      <form className={css.title} onSubmit={handleSubmit}>
+        <input className={css.board_title} placeholder="Add a new post-it" ref={ el => inputText = el } />
+        <button className={css.btn}>Add</button>
+      </form>
+    </div>
+
   )
 }
 

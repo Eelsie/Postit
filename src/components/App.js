@@ -16,6 +16,7 @@ class App extends Component {
     this.handleAddBoard = this.handleAddBoard.bind(this)
     this.handleAddNote = this.handleAddNote.bind(this)
     this.handleEditNote = this.handleEditNote.bind(this)
+    this.handleEditBoard = this.handleEditBoard.bind(this)
 
   }
 
@@ -100,12 +101,26 @@ class App extends Component {
     })
   }
 
+  handleEditBoard(id, text) {
+    fetch(`http://localhost:1337/boards/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({'name': text}),
+    }).then(() => {
+      let index = this.state.boards.findIndex((el) => el.id === id)
+      const {boards} = this.state
+      boards[index].name = text
+      this.setState({
+        boards,
+      })
+    })
+  }
+
 
   render() {
     return (
       <div className={css.wrapper}>
         <h1 className={css.title}>Post-it App</h1>
-        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard} handleAddNote={this.handleAddNote} handleEditNote={this.handleEditNote}/>
+        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard} handleAddNote={this.handleAddNote} handleEditNote={this.handleEditNote} handleEditBoard={this.handleEditBoard}/>
       </div>
     )
   }

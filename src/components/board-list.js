@@ -16,7 +16,7 @@ type Props = {
 const BoardList = (props: Props) => {
   return (
     <div className={css.component}>
-      {props.boards.map((board) => <BoardItem key={board.id} {...board} notes={props.notes} handleRemoveBoard={props.handleRemoveBoard} handleRemoveNote={props.handleRemoveNote} handleAddNote={props.handleAddNote} handleEditNote={props.handleEditNote}/>)}
+      {props.boards.map((board) => <BoardItem key={board.id} {...board} notes={props.notes} handleRemoveBoard={props.handleRemoveBoard} handleRemoveNote={props.handleRemoveNote} handleAddNote={props.handleAddNote} handleEditNote={props.handleEditNote} handleEditBoard={props.handleEditBoard}/>)}
       <CreateBoard handleAddBoard={props.handleAddBoard}/>
     </div>
   )
