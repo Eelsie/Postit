@@ -3,6 +3,7 @@
 .board_title {
   font-size: rem(22px);
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .notes {
@@ -28,10 +29,11 @@
   font-family: 'Linearicons-Free';
   border: none;
   background-color: #fff;
-  display: inline-block;
+  display: inline;
   float: right;
   color: #333;
-  font-size: 16px;
+  font-size: 15px;
+  padding: 0 0 0 10px;
 }
 
 .smaller_icon {

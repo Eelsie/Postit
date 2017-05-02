@@ -14,13 +14,13 @@ body {
 }
 
 .component_item {
-  width: 200px;
+  width: 230px;
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: #fff;
   margin: 15px;
-  padding: 25px 25px 15px 25px;
+  padding: 15px 25px 15px 25px;
   box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.1);
 }
 
@@ -28,6 +28,6 @@ body {
   margin-left: 0;
 }
 
-.title, .board_title, .notes label, .btn {
+.title, .board_title, .notes label, .notes input, .btn {
   font-family: var(--pt-serif);
 }

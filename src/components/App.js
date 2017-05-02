@@ -14,6 +14,9 @@ class App extends Component {
     this.handleRemoveBoard = this.handleRemoveBoard.bind(this)
     this.handleRemoveNote = this.handleRemoveNote.bind(this)
     this.handleAddBoard = this.handleAddBoard.bind(this)
+    this.handleAddNote = this.handleAddNote.bind(this)
+    this.handleEditNote = this.handleEditNote.bind(this)
+
   }
 
   componentWillMount() {
@@ -70,11 +73,29 @@ class App extends Component {
     })
   }
 
+  handleAddNote(text, id) {
+    fetch(`http://localhost:1337/notes/${id}`, {
+      method: 'POST',
+      body: JSON.stringify({'message': text, 'boardId': id}),
+    }).then(() => {
+      fetch('http://localhost:1337/notes')
+        .then((response) => response.json())
+        .then((notes) => {
+          this.setState({notes})
+        })
+    })
+  }
+
+  handleEditNote(id) {
+    console.log(id)
+
+  }
+
   render() {
     return (
       <div className={css.wrapper}>
         <h1 className={css.title}>Post-it App</h1>
-        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard}/>
+        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard} handleAddNote={this.handleAddNote} handleEditNote={this.handleEditNote}/>
       </div>
     )
   }
