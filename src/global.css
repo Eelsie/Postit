@@ -7,6 +7,5 @@ html {
 body {
   display: flex;
   min-height: 100%;
-  font-family: var(--pt-serif);
   color: #333;
 }

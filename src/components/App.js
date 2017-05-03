@@ -3,42 +3,29 @@ import BoardList from './board-list'
 import css from './App.css'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      boards: [],
-      notes: [],
-    }
-    this.fetchBoards = this.fetchBoards.bind(this)
-    this.handleRemoveBoard = this.handleRemoveBoard.bind(this)
-    this.handleRemoveNote = this.handleRemoveNote.bind(this)
-    this.handleAddBoard = this.handleAddBoard.bind(this)
-    this.handleAddNote = this.handleAddNote.bind(this)
-    this.handleEditNote = this.handleEditNote.bind(this)
-    this.handleEditBoard = this.handleEditBoard.bind(this)
-    this.handleChecked = this.handleChecked.bind(this)
-
+  props: Props
+  state = {
+    boards: [],
+    notes: [],
   }
 
   componentWillMount() {
     this.fetchBoards()
+    this.fetchNotes()
   }
 
-  fetchBoards = () => {
-    fetch('http://localhost:1337/boards')
-      .then((response) => response.json())
-      .then((boards) => {
-        this.setState({boards})
-      })
-    fetch('http://localhost:1337/notes')
-      .then((response) => response.json())
-      .then((notes) => {
-        this.setState({notes})
-      })
+  async fetchBoards() {
+    const response = await fetch(`http://localhost:1337/boards`)
+    const boards = await response.json()
+    this.setState({boards})
+  }
+  async fetchNotes() {
+    const response = await fetch(`http://localhost:1337/notes`)
+    const notes = await response.json()
+    this.setState({notes})
   }
 
-  handleRemoveBoard(id) {
+  handleRemoveBoard = (id) => {
     fetch(`http://localhost:1337/boards/${id}`, {
       method: 'DELETE',
     }).then(() => {
@@ -51,7 +38,7 @@ class App extends Component {
     })
   }
 
-  handleRemoveNote(id) {
+  handleRemoveNote = (id) => {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'DELETE',
     }).then(() => {
@@ -62,7 +49,7 @@ class App extends Component {
     })
   }
 
-  handleAddBoard(text) {
+  handleAddBoard = (text) => {
     fetch(`http://localhost:1337/boards/`, {
       method: 'POST',
       body: JSON.stringify({'name': text}),
@@ -75,7 +62,7 @@ class App extends Component {
     })
   }
 
-  handleAddNote(text, id) {
+  handleAddNote = (text, id) => {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'POST',
       body: JSON.stringify({'message': text, 'boardId': id, 'done': false}),
@@ -88,7 +75,7 @@ class App extends Component {
     })
   }
 
-  handleEditNote(id, text) {
+  handleEditNote = (id, text) => {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'PUT',
       body: JSON.stringify({'message': text}),
@@ -102,7 +89,7 @@ class App extends Component {
     })
   }
 
-  handleEditBoard(id, text) {
+  handleEditBoard = (id, text) => {
     fetch(`http://localhost:1337/boards/${id}`, {
       method: 'PUT',
       body: JSON.stringify({'name': text}),
@@ -116,7 +103,7 @@ class App extends Component {
     })
   }
 
-  handleChecked(id, done) {
+  handleChecked = (id, done) => {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'PUT',
       body: JSON.stringify({'done': !done}),

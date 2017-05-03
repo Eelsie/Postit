@@ -13,30 +13,24 @@ type Props = {
 }
 
 class NoteItem extends Component {
-  constructor(props: Props) {
-    super(props: Props)
-
-    this.state = {
-      editableNote: false,
-    }
-    this.removeNote = this.removeNote.bind(this)
-    this.editNote = this.editNote.bind(this)
-    this.toggleChecked = this.toggleChecked.bind(this)
+  props: Props
+  state = {
+    editableNote: false,
   }
 
-  removeNote(id, e) {
+  removeNote = (id, e) => {
     e.preventDefault()
     this.props.handleRemoveNote(id)
   }
 
-  editNote(e) {
+  editNote = (e) => {
     e.preventDefault()
     this.setState({
       editableNote: true,
     })
   }
 
-  saveEditedNote(id, e) {
+  saveEditedNote = (id, e) => {
     e.preventDefault()
     let text = this.inputText.value
     this.props.handleEditNote(id, text)
@@ -45,12 +39,11 @@ class NoteItem extends Component {
     })
   }
 
-  toggleChecked(id, done) {
+  toggleChecked = (id, done) => {
     this.props.handleChecked(id, done)
   }
 
   render() {
-
     if(this.state.editableNote) {
       return(
         <form className={css.notes_item} onSubmit={(e) => this.saveEditedNote(this.props.id, e)}>
@@ -61,7 +54,7 @@ class NoteItem extends Component {
     } else {
       return(
         <div className={css.notes_item}>
-          <input onClick={() => this.toggleChecked(this.props.id, this.props.done)} type="checkbox" value="None" name="check" checked={this.props.done}/>
+          <input onChange={() => this.toggleChecked(this.props.id, this.props.done)} type="checkbox" value="None" name="check" checked={this.props.done}/>
           <label>{this.props.message}
             <span onClick={(e) => this.removeNote(this.props.id, e)} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe811;</span>
             <span onClick={this.editNote} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe802;</span>

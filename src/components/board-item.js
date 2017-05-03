@@ -16,51 +16,38 @@ type Props = {
 }
 
 class BoardItem extends Component {
-  constructor(props: Props) {
-    super(props: Props)
-
-    this.state = {
-      editableAddNote: false,
-      editableBoard: false,
-    }
-
-    this.removeBoard = this.removeBoard.bind(this)
-    this.addNote = this.addNote.bind(this)
-    this.handleStateAddNote = this.handleStateAddNote.bind(this)
-    this.editBoard = this.editBoard.bind(this)
-    this.saveEditedBoard = this.saveEditedBoard.bind(this)
+  props: Props
+  state = {
+    editableAddNote: false,
+    editableBoard: false,
   }
 
-  removeBoard(e) {
-    e.preventDefault()
+  removeBoard = () => {
     this.props.handleRemoveBoard(this.props.id)
   }
 
-  editBoard(e) {
-    e.preventDefault()
+  editBoard = () => {
     this.setState({
       editableBoard: true,
     })
   }
 
-  saveEditedBoard(e) {
+  saveEditedBoard = (e) => {
     e.preventDefault()
     let text = this.inputText.value
     this.props.handleEditBoard(this.props.id, text)
     this.setState({
       editableBoard: false,
     })
-
   }
 
-  addNote(e) {
-    e.preventDefault()
+  addNote = () => {
     this.setState({
       editableAddNote: true,
     })
   }
 
-  handleStateAddNote() {
+  handleStateAddNote = () => {
     this.setState({
       editableAddNote: false,
     })
@@ -69,9 +56,9 @@ class BoardItem extends Component {
   render() {
 
     const filteredNotes = this.props.notes.filter((note) => note.boardId === this.props.id)
-    let newNote
     let buttonAddNote = <button onClick={this.addNote} className={css.btn}>Add a note</button>
 
+    let newNote
     if (this.state.editableAddNote) {
       newNote = <CreateNote handleAddNote={this.props.handleAddNote} handleStateAddNote={this.handleStateAddNote} boardId={this.props.id}/>
       buttonAddNote = null

@@ -1,25 +1,35 @@
-import React from 'react'
+import React, {Component} from 'react'
 import css from './board-item.css'
 
-const CreateBoard = (props) => {
+type Props = {
+  handleAddBoard: object,
+}
 
-  let inputText
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    let title = inputText.value
-    inputText.value = ''
-    props.handleAddBoard(title)
+class CreateBoard extends Component {
+  props: Props
+  state = {
+    value: '',
   }
 
-  return (
-    <div className={css.component_item}>
-      <form className={css.title} onSubmit={handleSubmit}>
-        <input className={css.board_title} placeholder="Add a new post-it" ref={ el => inputText = el } autoFocus required />
-        <button className={css.btn}>Add</button>
-      </form>
-    </div>
+  handleChange = (e) => {
+    this.setState({value: e.target.value})
+  }
 
-  )
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.handleAddBoard(this.state.value)
+  }
+
+  render() {
+    return (
+      <div className={css.component_item}>
+        <form className={css.title} onSubmit={this.handleSubmit}>
+          <input className={css.board_title} placeholder="Add a new post-it" value={this.state.value} onChange={this.handleChange} autoFocus required />
+          <button className={css.btn}>Add</button>
+        </form>
+      </div>
+    )
+  }
 }
 
 export default CreateBoard

@@ -93,3 +93,7 @@ input {
 .narrow {
   width: 80%;
 }
+
+input[type=checkbox]:checked + label {
+  text-decoration: line-through;
+}
