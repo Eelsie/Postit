@@ -7,17 +7,14 @@ const CreateBoard = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     let title = inputText.value
-
-    if (title.length > 0) {
-      inputText.value = ''
-      props.handleAddBoard(title)
-    }
+    inputText.value = ''
+    props.handleAddBoard(title)
   }
 
   return (
     <div className={css.component_item}>
       <form className={css.title} onSubmit={handleSubmit}>
-        <input className={css.board_title} placeholder="Add a new post-it" ref={ el => inputText = el } />
+        <input className={css.board_title} placeholder="Add a new post-it" ref={ el => inputText = el } autoFocus required />
         <button className={css.btn}>Add</button>
       </form>
     </div>

@@ -9,6 +9,7 @@ type Props = {
   handleAddNote: object,
   handleEditNote: object,
   handleEditBoard: object,
+  handleChecked: object,
   id: integer,
   notes: array,
   name: string,
@@ -45,9 +46,7 @@ class BoardItem extends Component {
   saveEditedBoard(e) {
     e.preventDefault()
     let text = this.inputText.value
-    if (text.length > 0) {
-      this.props.handleEditBoard(this.props.id, text)
-    }
+    this.props.handleEditBoard(this.props.id, text)
     this.setState({
       editableBoard: false,
     })
@@ -70,7 +69,7 @@ class BoardItem extends Component {
   render() {
 
     const filteredNotes = this.props.notes.filter((note) => note.boardId === this.props.id)
-    let newNote = null
+    let newNote
     let buttonAddNote = <button onClick={this.addNote} className={css.btn}>Add a note</button>
 
     if (this.state.editableAddNote) {
@@ -78,10 +77,10 @@ class BoardItem extends Component {
       buttonAddNote = null
     }
 
-    let title = null
+    let title
     if(this.state.editableBoard) {
       title = <form className={css.title} onSubmit={this.saveEditedBoard}>
-                <input className={`${css.board_title} ${css.narrow}`} defaultValue={this.props.name} ref={ el => this.inputText = el }/>
+                <input className={`${css.board_title} ${css.narrow}`} defaultValue={this.props.name} ref={ el => this.inputText = el } autoFocus required />
                 <button className={`${css.btn} ${css.btn_save_note}`}>Save</button>
               </form>
     } else {
@@ -95,10 +94,9 @@ class BoardItem extends Component {
     return (
 
       <div className={css.component_item}>
-
         {title}
         <div className={css.notes}>
-          {filteredNotes.map((note) => <NoteItem key={note.id} {...note} handleEditNote={this.props.handleEditNote} handleRemoveNote={this.props.handleRemoveNote}/>)}
+          {filteredNotes.map((note) => <NoteItem key={note.id} {...note} handleEditNote={this.props.handleEditNote} handleRemoveNote={this.props.handleRemoveNote} handleChecked={this.props.handleChecked}/>)}
         </div>
         {newNote}
         {buttonAddNote}
