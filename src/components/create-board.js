@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import css from '../styles/board-item.css'
 
 type Props = {
-  handleAddBoard: object,
+  handleAddBoard: Function,
 }
 
 class CreateBoard extends Component {

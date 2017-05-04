@@ -5,12 +5,12 @@ import NoteItem from './note-item'
 import css from '../styles/board-item.css'
 
 type Props = {
-  handleRemoveBoard: object,
-  handleRemoveNote: object,
-  handleAddNote: object,
-  handleEditNote: object,
-  handleEditBoard: object,
-  handleChecked: object,
+  handleRemoveBoard: Function,
+  handleRemoveNote: Function,
+  handleAddNote: Function,
+  handleEditNote: Function,
+  handleEditBoard: Function,
+  handleChecked: Function,
   id: integer,
   notes: array,
   name: string,

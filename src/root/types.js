@@ -1,7 +1,10 @@
 // @flow
 
-import type {HelloState} from '../hello/types'
+import type {BoardState} from '../components/types'
+import type {NoteState} from '../components/types'
+
 
 export type RootState = {
-  hello: HelloState,
+  board: BoardState,
+  note: NoteState,
 }

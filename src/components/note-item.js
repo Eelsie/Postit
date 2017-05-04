@@ -5,11 +5,12 @@ import css from '../styles/board-item.css'
 type Props = {
   note: array,
   message: string,
-  id: integer,
+  id: number,
   editableNote: boolean,
-  handleRemoveNote: object,
-  handleEditNote: object,
-  handleChecked: object,
+  handleRemoveNote: Function,
+  handleEditNote: Function,
+  handleChecked: Function,
+  removeNote: Function,
   done: boolean,
 }
 
@@ -19,13 +20,11 @@ class NoteItem extends Component {
     editableNote: false,
   }
 
-  removeNote = (id, e) => {
-    e.preventDefault()
+  removeNote = (id) => {
     this.props.handleRemoveNote(id)
   }
 
-  editNote = (e) => {
-    e.preventDefault()
+  editNote = () => {
     this.setState({
       editableNote: true,
     })

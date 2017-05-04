@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {receiveBoards} from '../redux/actions'
 import {receiveNotes} from '../redux/actions'
+import {removeNote} from '../redux/actions'
 import type {RootState} from '$src/root/types'
 import BoardList from './board-list'
 import css from '../styles/App.css'
@@ -43,10 +44,11 @@ class App extends Component {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'DELETE',
     }).then(() => {
-      const filteredNotes = this.notes.filter((el) => el.id !== id)
-      this.setState({
-        notes: filteredNotes,
-      })
+      // const filteredNotes = this.props.notes.filter((el) => el.id !== id)
+      // this.setState({
+      //   notes: filteredNotes,
+      // })
+      this.props.removeNote(id)
     })
   }
 
@@ -120,6 +122,8 @@ class App extends Component {
 
 
   render() {
+    console.log('boards', this.props.boards)
+    console.log('notes', this.props.notes)
     return (
       <div className={css.wrapper}>
         <h1 className={css.title}>Post-it App</h1>
@@ -135,4 +139,4 @@ const mapStateToProps = (state: RootState) => ({
   notes: state.note.notes,
 })
 
-export default connect(mapStateToProps, {receiveBoards, receiveNotes})(App)
+export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeNote})(App)

@@ -7,13 +7,13 @@ import css from '../styles/App.css'
 type Props = {
   boards: array,
   notes: array,
-  handleRemoveBoard: object,
-  handleRemoveNote: object,
-  handleAddBoard: object,
-  handleAddNote: object,
-  handleEditNote: object,
-  handleEditBoard: object,
-  handleChecked: object,
+  handleRemoveBoard: Function,
+  handleRemoveNote: Function,
+  handleAddBoard: Function,
+  handleAddNote: Function,
+  handleEditNote: Function,
+  handleEditBoard: Function,
+  handleChecked: Function,
 }
 
 const BoardList = (props: Props) => {
