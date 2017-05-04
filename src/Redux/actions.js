@@ -9,3 +9,6 @@ export const receiveNotes =
 
 export const removeNote =
   createAction('REMOVE_NOTE')
+
+export const editNote =
+  createAction('EDIT_NOTE')

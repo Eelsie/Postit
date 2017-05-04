@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {receiveBoards} from '../redux/actions'
 import {receiveNotes} from '../redux/actions'
 import {removeNote} from '../redux/actions'
+import {editNote} from '../redux/actions'
+
 import type {RootState} from '$src/root/types'
 import BoardList from './board-list'
 import css from '../styles/App.css'
@@ -31,12 +33,15 @@ class App extends Component {
     fetch(`http://localhost:1337/boards/${id}`, {
       method: 'DELETE',
     }).then(() => {
-      const filteredBoards = this.boards.filter((el) => el.id !== id)
-      const filteredNotes = this.notes.filter((el) => el.boardId !== id)
-      this.setState({
-        boards: filteredBoards,
-        notes: filteredNotes,
-      })
+      this.fetchBoards()
+      this.fetchNotes()
+      // WITHOUT REDUX
+      // const filteredBoards = this.boards.filter((el) => el.id !== id)
+      // const filteredNotes = this.notes.filter((el) => el.boardId !== id)
+      // this.setState({
+      //   boards: filteredBoards,
+      //   notes: filteredNotes,
+      // })
     })
   }
 
@@ -44,11 +49,12 @@ class App extends Component {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'DELETE',
     }).then(() => {
+      this.props.removeNote(id)
+      // WITHOUT REDUX
       // const filteredNotes = this.props.notes.filter((el) => el.id !== id)
       // this.setState({
       //   notes: filteredNotes,
       // })
-      this.props.removeNote(id)
     })
   }
 
@@ -57,11 +63,14 @@ class App extends Component {
       method: 'POST',
       body: JSON.stringify({'name': text}),
     }).then(() => {
-      fetch('http://localhost:1337/boards')
-        .then((response) => response.json())
-        .then((boards) => {
-          this.setState({boards})
-        })
+      this.fetchBoards()
+
+      // WITHOUT REDUX
+      // fetch('http://localhost:1337/boards')
+      //   .then((response) => response.json())
+      //   .then((boards) => {
+      //     this.setState({boards})
+      //   })
     })
   }
 
@@ -70,11 +79,13 @@ class App extends Component {
       method: 'POST',
       body: JSON.stringify({'message': text, 'boardId': id, 'done': false}),
     }).then(() => {
-      fetch('http://localhost:1337/notes')
-        .then((response) => response.json())
-        .then((notes) => {
-          this.setState({notes})
-        })
+      this.fetchNotes()
+      // WITHOUT REDUX
+      // fetch('http://localhost:1337/notes')
+      //   .then((response) => response.json())
+      //   .then((notes) => {
+      //     this.setState({notes})
+      //   })
     })
   }
 
@@ -83,12 +94,17 @@ class App extends Component {
       method: 'PUT',
       body: JSON.stringify({'message': text}),
     }).then(() => {
-      let index = this.state.notes.findIndex((el) => el.id === id)
-      const {notes} = this.state
-      notes[index].message = text
-      this.setState({
-        notes,
-      })
+      let index = this.props.notes.findIndex((el) => el.id === id)
+      console.log(index)
+      let payload = {'index': index, 'text': text}
+      this.props.editNote(payload)
+      // WITHOU REDUX
+      // let index = this.state.notes.findIndex((el) => el.id === id)
+      // const {notes} = this.state
+      // notes[index].message = text
+      // this.setState({
+      //   notes,
+      // })
     })
   }
 
@@ -122,8 +138,6 @@ class App extends Component {
 
 
   render() {
-    console.log('boards', this.props.boards)
-    console.log('notes', this.props.notes)
     return (
       <div className={css.wrapper}>
         <h1 className={css.title}>Post-it App</h1>
@@ -139,4 +153,4 @@ const mapStateToProps = (state: RootState) => ({
   notes: state.note.notes,
 })
 
-export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeNote})(App)
+export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeNote, editNote})(App)
