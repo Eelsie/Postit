@@ -1,5 +1,6 @@
+// @flow
 import React from 'react'
-import css from './create-note.css'
+import css from '../styles/create-note.css'
 
 const CreateNote = (props) => {
 

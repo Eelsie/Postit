@@ -1,7 +1,8 @@
+// @flow
 import React, {Component} from 'react'
 import CreateNote from './create-note'
 import NoteItem from './note-item'
-import css from './board-item.css'
+import css from '../styles/board-item.css'
 
 type Props = {
   handleRemoveBoard: object,

@@ -1,12 +1,14 @@
 // @flow
 
 import {combineReducers} from 'redux'
-import helloReducer from '../hello/reducer'
+import boardReducer from '../Redux/reducer'
+import noteReducer from '../Redux/reducer'
 
 import type {Reducer} from '../types'
 import type {RootState} from './types'
 
 export default (): Reducer<RootState> =>
   combineReducers({
-    hello: helloReducer,
+    board: boardReducer,
+    note: noteReducer,
   })

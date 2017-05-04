@@ -1,7 +1,8 @@
+// @flow
 import React from 'react'
 import BoardItem from './board-item'
 import CreateBoard from './create-board'
-import css from './App.css'
+import css from '../styles/App.css'
 
 type Props = {
   boards: array,

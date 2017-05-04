@@ -1,5 +1,6 @@
+// @flow
 import React, {Component} from 'react'
-import css from './board-item.css'
+import css from '../styles/board-item.css'
 
 type Props = {
   handleAddBoard: object,

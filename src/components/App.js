@@ -1,13 +1,14 @@
+// @flow
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {receiveBoards} from '../redux/actions'
+import {receiveNotes} from '../redux/actions'
+import type {RootState} from '$src/root/types'
 import BoardList from './board-list'
-import css from './App.css'
+import css from '../styles/App.css'
 
 class App extends Component {
   props: Props
-  state = {
-    boards: [],
-    notes: [],
-  }
 
   componentWillMount() {
     this.fetchBoards()
@@ -17,20 +18,20 @@ class App extends Component {
   async fetchBoards() {
     const response = await fetch(`http://localhost:1337/boards`)
     const boards = await response.json()
-    this.setState({boards})
+    this.props.receiveBoards(boards)
   }
   async fetchNotes() {
     const response = await fetch(`http://localhost:1337/notes`)
     const notes = await response.json()
-    this.setState({notes})
+    this.props.receiveNotes(notes)
   }
 
   handleRemoveBoard = (id) => {
     fetch(`http://localhost:1337/boards/${id}`, {
       method: 'DELETE',
     }).then(() => {
-      const filteredBoards = this.state.boards.filter((el) => el.id !== id)
-      const filteredNotes = this.state.notes.filter((el) => el.boardId !== id)
+      const filteredBoards = this.boards.filter((el) => el.id !== id)
+      const filteredNotes = this.notes.filter((el) => el.boardId !== id)
       this.setState({
         boards: filteredBoards,
         notes: filteredNotes,
@@ -42,7 +43,7 @@ class App extends Component {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'DELETE',
     }).then(() => {
-      const filteredNotes = this.state.notes.filter((el) => el.id !== id)
+      const filteredNotes = this.notes.filter((el) => el.id !== id)
       this.setState({
         notes: filteredNotes,
       })
@@ -122,10 +123,16 @@ class App extends Component {
     return (
       <div className={css.wrapper}>
         <h1 className={css.title}>Post-it App</h1>
-        <BoardList boards={this.state.boards} notes={this.state.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard} handleAddNote={this.handleAddNote} handleEditNote={this.handleEditNote} handleEditBoard={this.handleEditBoard} handleChecked={this.handleChecked}/>
+        <BoardList boards={this.props.boards} notes={this.props.notes} handleRemoveBoard={this.handleRemoveBoard} handleRemoveNote={this.handleRemoveNote} handleAddBoard={this.handleAddBoard} handleAddNote={this.handleAddNote} handleEditNote={this.handleEditNote} handleEditBoard={this.handleEditBoard} handleChecked={this.handleChecked}/>
       </div>
     )
   }
 }
 
-export default App
+// transform redux state into props I need
+const mapStateToProps = (state: RootState) => ({
+  boards: state.board.boards,
+  notes: state.note.notes,
+})
+
+export default connect(mapStateToProps, {receiveBoards, receiveNotes})(App)
