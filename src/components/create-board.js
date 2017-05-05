@@ -19,6 +19,7 @@ class CreateBoard extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.handleAddBoard(this.state.value)
+    this.setState({value: ''})
   }
 
   render() {

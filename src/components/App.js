@@ -3,8 +3,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {receiveBoards} from '../redux/actions'
 import {receiveNotes} from '../redux/actions'
+import {removeBoard} from '../redux/actions'
 import {removeNote} from '../redux/actions'
 import {editNote} from '../redux/actions'
+import {editBoard} from '../redux/actions'
+import {toggleCheck} from '../redux/actions'
 
 import type {RootState} from '$src/root/types'
 import BoardList from './board-list'
@@ -33,8 +36,7 @@ class App extends Component {
     fetch(`http://localhost:1337/boards/${id}`, {
       method: 'DELETE',
     }).then(() => {
-      this.fetchBoards()
-      this.fetchNotes()
+      this.props.removeBoard(id)
       // WITHOUT REDUX
       // const filteredBoards = this.boards.filter((el) => el.id !== id)
       // const filteredNotes = this.notes.filter((el) => el.boardId !== id)
@@ -58,12 +60,19 @@ class App extends Component {
     })
   }
 
+  // I cannot get data back!!
   handleAddBoard = (text) => {
     fetch(`http://localhost:1337/boards/`, {
       method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({'name': text}),
-    }).then(() => {
-      this.fetchBoards()
+    }).then((resp) => resp.json())
+      .then((board) => {
+        console.log(board)
+      }).catch((e) => console.log(e))
 
       // WITHOUT REDUX
       // fetch('http://localhost:1337/boards')
@@ -71,22 +80,24 @@ class App extends Component {
       //   .then((boards) => {
       //     this.setState({boards})
       //   })
-    })
   }
 
+  // I cannot get data back!!
   handleAddNote = (text, id) => {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'POST',
       body: JSON.stringify({'message': text, 'boardId': id, 'done': false}),
-    }).then(() => {
-      this.fetchNotes()
+    }).then((resp) => resp.json())
+      .then((note) => console.log(note))
+      .catch((e) => console.log(e))
+
       // WITHOUT REDUX
       // fetch('http://localhost:1337/notes')
       //   .then((response) => response.json())
       //   .then((notes) => {
       //     this.setState({notes})
       //   })
-    })
+
   }
 
   handleEditNote = (id, text) => {
@@ -94,10 +105,7 @@ class App extends Component {
       method: 'PUT',
       body: JSON.stringify({'message': text}),
     }).then(() => {
-      let index = this.props.notes.findIndex((el) => el.id === id)
-      console.log(index)
-      let payload = {'index': index, 'text': text}
-      this.props.editNote(payload)
+      this.props.editNote({id, text})
       // WITHOU REDUX
       // let index = this.state.notes.findIndex((el) => el.id === id)
       // const {notes} = this.state
@@ -113,12 +121,14 @@ class App extends Component {
       method: 'PUT',
       body: JSON.stringify({'name': text}),
     }).then(() => {
-      let index = this.state.boards.findIndex((el) => el.id === id)
-      const {boards} = this.state
-      boards[index].name = text
-      this.setState({
-        boards,
-      })
+      this.props.editBoard({id, text})
+      // WITHOUT REDUX
+      // let index = this.state.boards.findIndex((el) => el.id === id)
+      // const {boards} = this.state
+      // boards[index].name = text
+      // this.setState({
+      //   boards,
+      // })
     })
   }
 
@@ -127,12 +137,14 @@ class App extends Component {
       method: 'PUT',
       body: JSON.stringify({'done': !done}),
     }).then(() => {
-      let index = this.state.notes.findIndex((el) => el.id === id)
-      const {notes} = this.state
-      notes[index].done = !done
-      this.setState({
-        notes,
-      })
+      this.props.toggleCheck({id, done})
+      // WITHOU REDUX
+      // let index = this.state.notes.findIndex((el) => el.id === id)
+      // const {notes} = this.state
+      // notes[index].done = !done
+      // this.setState({
+      //   notes,
+      // })
     })
   }
 
@@ -153,4 +165,4 @@ const mapStateToProps = (state: RootState) => ({
   notes: state.note.notes,
 })
 
-export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeNote, editNote})(App)
+export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeBoard, removeNote, editNote, editBoard, toggleCheck})(App)
