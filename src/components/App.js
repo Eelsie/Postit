@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {receiveBoards} from '../redux/actions'
 import {receiveNotes} from '../redux/actions'
 import {removeBoard} from '../redux/actions'
+import {addBoard} from '../redux/actions'
+import {addNote} from '../redux/actions'
 import {removeNote} from '../redux/actions'
 import {editNote} from '../redux/actions'
 import {editBoard} from '../redux/actions'
@@ -70,9 +72,7 @@ class App extends Component {
       },
       body: JSON.stringify({'name': text}),
     }).then((resp) => resp.json())
-      .then((board) => {
-        console.log(board)
-      }).catch((e) => console.log(e))
+      .then((board) => this.props.addBoard(board))
 
       // WITHOUT REDUX
       // fetch('http://localhost:1337/boards')
@@ -82,14 +82,13 @@ class App extends Component {
       //   })
   }
 
-  // I cannot get data back!!
   handleAddNote = (text, id) => {
     fetch(`http://localhost:1337/notes/${id}`, {
       method: 'POST',
       body: JSON.stringify({'message': text, 'boardId': id, 'done': false}),
     }).then((resp) => resp.json())
-      .then((note) => console.log(note))
-      .catch((e) => console.log(e))
+      .then((note) => this.props.addNote(note))
+
 
       // WITHOUT REDUX
       // fetch('http://localhost:1337/notes')
@@ -165,4 +164,4 @@ const mapStateToProps = (state: RootState) => ({
   notes: state.note.notes,
 })
 
-export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeBoard, removeNote, editNote, editBoard, toggleCheck})(App)
+export default connect(mapStateToProps, {receiveBoards, receiveNotes, removeBoard, addBoard, addNote, removeNote, editNote, editBoard, toggleCheck})(App)

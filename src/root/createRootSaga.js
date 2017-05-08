@@ -1,7 +1,7 @@
 // @flow
 
 import {fork} from 'redux-saga/effects'
-import helloSaga from '../hello/saga'
+import helloSaga from '../redux/saga'
 
 export default () =>
   // $FlowFixMe

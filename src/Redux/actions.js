@@ -7,6 +7,12 @@ export const receiveBoards =
 export const receiveNotes =
   createAction('RECEIVE_NOTES')
 
+export const addBoard =
+  createAction('ADD_BOARD')
+
+export const addNote =
+  createAction('ADD_NOTE')
+
 export const removeBoard =
   createAction('REMOVE_BOARD')
 
