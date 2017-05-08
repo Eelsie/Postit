@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import css from '../styles/board-item.css'
 
 type Props = {
-  handleAddBoard: Function,
+  addBoard: Function,
 }
 
 class CreateBoard extends Component {
@@ -18,7 +18,7 @@ class CreateBoard extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.handleAddBoard(this.state.value)
+    this.props.addBoard(this.state.value)
     this.setState({value: ''})
   }
 

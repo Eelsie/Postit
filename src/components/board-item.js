@@ -5,14 +5,13 @@ import NoteItem from './note-item'
 import css from '../styles/board-item.css'
 
 type Props = {
-  handleRemoveBoard: Function,
-  handleRemoveNote: Function,
+  removeBoard: Function,
   handleAddNote: Function,
-  handleEditNote: Function,
-  handleEditBoard: Function,
-  handleChecked: Function,
-  id: integer,
-  notes: array,
+  editNote: Function,
+  editBoard: Function,
+  toggleCheck: Function,
+  id: number,
+  notes: Array,
   name: string,
 }
 
@@ -23,11 +22,11 @@ class BoardItem extends Component {
     editableBoard: false,
   }
 
-  removeBoard = () => {
-    this.props.handleRemoveBoard(this.props.id)
+  handleRemoveBoard = () => {
+    this.props.removeBoard(this.props.id)
   }
 
-  editBoard = () => {
+  handleEditBoard = () => {
     this.setState({
       editableBoard: true,
     })
@@ -36,13 +35,14 @@ class BoardItem extends Component {
   saveEditedBoard = (e) => {
     e.preventDefault()
     let text = this.inputText.value
-    this.props.handleEditBoard(this.props.id, text)
+    console.log(text)
+    this.props.editBoard({id: this.props.id, text})
     this.setState({
       editableBoard: false,
     })
   }
 
-  addNote = () => {
+  handleAddNote = () => {
     this.setState({
       editableAddNote: true,
     })
@@ -57,11 +57,11 @@ class BoardItem extends Component {
   render() {
 
     const filteredNotes = this.props.notes.filter((note) => note.boardId === this.props.id)
-    let buttonAddNote = <button onClick={this.addNote} className={css.btn}>Add a note</button>
+    let buttonAddNote = <button onClick={this.handleAddNote} className={css.btn}>Add a note</button>
 
     let newNote
     if (this.state.editableAddNote) {
-      newNote = <CreateNote handleAddNote={this.props.handleAddNote} handleStateAddNote={this.handleStateAddNote} boardId={this.props.id}/>
+      newNote = <CreateNote addNote={this.props.addNote} handleStateAddNote={this.handleStateAddNote} boardId={this.props.id}/>
       buttonAddNote = null
     }
 
@@ -74,8 +74,8 @@ class BoardItem extends Component {
     } else {
       title = <div className={css.title}>
                 <h3 className={css.board_title}>{this.props.name}</h3>
-                <button onClick={this.removeBoard} className={css.btn_icon}>&#xe811;</button>
-                <button onClick={this.editBoard} className={css.btn_icon}>&#xe802;</button>
+                <button onClick={this.handleRemoveBoard} className={css.btn_icon}>&#xe811;</button>
+                <button onClick={this.handleEditBoard} className={css.btn_icon}>&#xe802;</button>
               </div>
     }
 
@@ -84,7 +84,7 @@ class BoardItem extends Component {
       <div className={css.component_item}>
         {title}
         <div className={css.notes}>
-          {filteredNotes.map((note) => <NoteItem key={note.id} {...note} handleEditNote={this.props.handleEditNote} handleRemoveNote={this.props.handleRemoveNote} handleChecked={this.props.handleChecked}/>)}
+          {filteredNotes.map((note) => <NoteItem key={note.id} {...note} removeNote={this.props.removeNote} editNote={this.props.editNote} toggleCheck={this.props.toggleCheck}/>)}
         </div>
         {newNote}
         {buttonAddNote}

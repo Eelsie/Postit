@@ -1,8 +1,5 @@
 import type {Selector} from '../../types'
+import type {Board} from './types'
 
-const getMessage: Selector<string> = (state) =>
-  state.hello.message
-
-export const helloSelector: Selector<mixed> = (state) => ({
-  message: getMessage(state),
-})
+export const getBoards: Selector<Array<Board>, *> = (state) => state.board.boards
+export const getNotes = (state) => state.note.notes

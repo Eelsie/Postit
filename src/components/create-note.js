@@ -11,7 +11,7 @@ const CreateNote = (props) => {
     let text = inputText.value
     if (text.length > 0) {
       inputText.value = ''
-      props.handleAddNote(text, props.boardId)
+      props.addNote({text, id: props.boardId})
       props.handleStateAddNote()
     }
   }

@@ -7,20 +7,20 @@ import css from '../styles/App.css'
 type Props = {
   boards: array,
   notes: array,
-  handleRemoveBoard: Function,
-  handleRemoveNote: Function,
+  removeBoard: Function,
+  removeNote: Function,
   handleAddBoard: Function,
   handleAddNote: Function,
-  handleEditNote: Function,
-  handleEditBoard: Function,
-  handleChecked: Function,
+  editNote: Function,
+  editBoard: Function,
+  toggleCheck: Function,
 }
 
 const BoardList = (props: Props) => {
   return (
     <div className={css.component}>
-      {props.boards.map((board) => <BoardItem key={board.id} {...board} notes={props.notes} handleRemoveBoard={props.handleRemoveBoard} handleRemoveNote={props.handleRemoveNote} handleAddNote={props.handleAddNote} handleEditNote={props.handleEditNote} handleEditBoard={props.handleEditBoard} handleChecked={props.handleChecked}/>)}
-      <CreateBoard handleAddBoard={props.handleAddBoard}/>
+      {props.boards.map((board) => <BoardItem key={board.id} {...board} notes={props.notes} removeBoard={props.removeBoard} removeNote={props.removeNote} addNote={props.addNote} editNote={props.editNote} editBoard={props.editBoard} toggleCheck={props.toggleCheck}/>)}
+      <CreateBoard addBoard={props.addBoard}/>
     </div>
   )
 }

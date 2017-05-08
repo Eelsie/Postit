@@ -1,16 +1,18 @@
 // @flow
 import React, {Component} from 'react'
+
 import css from '../styles/board-item.css'
+
 
 type Props = {
   note: array,
   message: string,
   id: number,
   editableNote: boolean,
-  handleRemoveNote: Function,
-  handleEditNote: Function,
-  handleChecked: Function,
   removeNote: Function,
+  handleEditNote: Function,
+  editNote: Function,
+  toggleCheck: Function,
   done: boolean,
 }
 
@@ -20,11 +22,7 @@ class NoteItem extends Component {
     editableNote: false,
   }
 
-  removeNote = (id) => {
-    this.props.handleRemoveNote(id)
-  }
-
-  editNote = () => {
+  handleEditNote = () => {
     this.setState({
       editableNote: true,
     })
@@ -33,14 +31,18 @@ class NoteItem extends Component {
   saveEditedNote = (id, e) => {
     e.preventDefault()
     let text = this.inputText.value
-    this.props.handleEditNote(id, text)
+    this.props.editNote({id, text})
     this.setState({
       editableNote: false,
     })
   }
 
-  toggleChecked = (id, done) => {
-    this.props.handleChecked(id, done)
+  handleChecked = (id, done) => {
+    this.props.toggleCheck(id, done)
+  }
+
+  handleRemoveNote = (id) => {
+    this.props.removeNote(id)
   }
 
   render() {
@@ -54,10 +56,10 @@ class NoteItem extends Component {
     } else {
       return(
         <div className={css.notes_item}>
-          <input onChange={() => this.toggleChecked(this.props.id, this.props.done)} type="checkbox" value="None" name="check" checked={this.props.done}/>
+          <input onChange={() => this.handleChecked(this.props.id, this.props.done)} type="checkbox" value="None" name="check" checked={this.props.done}/>
           <label>{this.props.message}
-            <span onClick={(e) => this.removeNote(this.props.id, e)} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe811;</span>
-            <span onClick={this.editNote} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe802;</span>
+            <span onClick={() => this.handleRemoveNote(this.props.id)} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe811;</span>
+            <span onClick={this.handleEditNote} className={`${css.btn_icon} ${css.smaller_icon}`}>&#xe802;</span>
           </label>
         </div>
       )
