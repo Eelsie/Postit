@@ -1,11 +1,12 @@
 // @flow
 import React, {Component} from 'react'
+import {Note} from './types'
 
 import css from '../styles/board-item.css'
 
 
 type Props = {
-  note: array,
+  note: Note,
   message: string,
   id: number,
   editableNote: boolean,
@@ -28,7 +29,7 @@ class NoteItem extends Component {
     })
   }
 
-  saveEditedNote = (id, e) => {
+  saveEditedNote = (id: number, e: Object) => {
     e.preventDefault()
     let text = this.inputText.value
     this.props.editNote({id, text})
@@ -37,11 +38,11 @@ class NoteItem extends Component {
     })
   }
 
-  handleChecked = (id, done) => {
+  handleChecked = (id: number, done: boolean) => {
     this.props.toggleCheck({id, done})
   }
 
-  handleRemoveNote = (id) => {
+  handleRemoveNote = (id: number) => {
     this.props.removeNote(id)
   }
 

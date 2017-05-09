@@ -12,6 +12,8 @@ import {updateToggleCheck} from './actions'
 import {updateEditBoard} from './actions'
 import {updateEditNote} from './actions'
 
+import {reset} from 'redux-form'
+
 
 function* fetchBoards(): Generator<> {
   const response = yield fetch(`http://localhost:1337/boards`)
@@ -46,12 +48,13 @@ function* removeBoard(payload): Generator<> {
 }
 
 function* addNote(payload): Generator<> {
-  const response = yield fetch(`http://localhost:1337/notes/${payload.payload.id}`, {
+  const response = yield fetch(`http://localhost:1337/notes/${payload.payload.boardId}`, {
     method: 'POST',
-    body: JSON.stringify({'message': payload.payload.text, 'boardId': payload.payload.id, 'done': false}),
+    body: JSON.stringify({'message': payload.payload.message, 'boardId': payload.payload.boardId, 'done': false}),
   })
   const note = yield response.json()
   yield put(updateAddNote(note))
+  yield put(reset('newNote'))
 }
 
 function* addBoard(payload): Generator<> {
@@ -61,6 +64,7 @@ function* addBoard(payload): Generator<> {
   })
   const board = yield response.json()
   yield put(updateAddBoard(board))
+  yield put(reset('newBoard'))
 }
 
 function* toggleCheck(payload): Generator<> {

@@ -18,16 +18,16 @@ import type {RootState} from '$src/root/types'
 import BoardList from './board-list'
 import css from '../styles/App.css'
 
-import {board} from './types'
-import {note} from './types'
+import {Board} from './types'
+import {Note} from './types'
 
 type Props = {
   fetchBoards: Function,
   fetchNotes: Function,
   removeBoard: Function,
   removeBoard: Function,
-  boards: Array<board>,
-  notes: Array<note>,
+  boards: Array<Board>,
+  notes: Array<Note>,
   removeNote: Function,
   addBoard: Function,
   addNote: Function,

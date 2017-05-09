@@ -4,6 +4,8 @@ import CreateNote from './create-note'
 import NoteItem from './note-item'
 import css from '../styles/board-item.css'
 
+import {Note} from './types'
+
 type Props = {
   removeBoard: Function,
   removeNote: Function,
@@ -13,12 +15,10 @@ type Props = {
   toggleCheck: Function,
   addNote: Function,
   id: number,
-  notes: Array<mixed>,
+  notes: Array<Note>,
   name: string,
   boardId: number,
-  inputText: string,
-  e: mixed,
-
+  textInput: Object,
 }
 
 class BoardItem extends Component {
@@ -38,10 +38,9 @@ class BoardItem extends Component {
     })
   }
 
-  saveEditedBoard = (e) => {
+  saveEditedBoard = (e: Object) => {
     e.preventDefault()
-    let text = this.inputText.value
-    console.log(text)
+    let text = this.textInput.value
     this.props.editBoard({id: this.props.id, text})
     this.setState({
       editableBoard: false,
@@ -54,7 +53,8 @@ class BoardItem extends Component {
     })
   }
 
-  handleStateAddNote = () => {
+  submitNote = (values: Object) => {
+    this.props.addNote({'message': values.noteName, boardId: this.props.id})
     this.setState({
       editableAddNote: false,
     })
@@ -67,14 +67,14 @@ class BoardItem extends Component {
 
     let newNote
     if (this.state.editableAddNote) {
-      newNote = <CreateNote addNote={this.props.addNote} handleStateAddNote={this.handleStateAddNote} boardId={this.props.id}/>
+      newNote = <CreateNote onSubmit={this.submitNote}  />
       buttonAddNote = null
     }
 
     let title
     if(this.state.editableBoard) {
       title = <form className={css.title} onSubmit={this.saveEditedBoard}>
-                <input className={`${css.board_title} ${css.narrow}`} defaultValue={this.props.name} ref={ el => this.inputText = el } autoFocus required />
+                <input className={`${css.board_title} ${css.narrow}`} defaultValue={this.props.name} ref={el => this.textInput = el} autoFocus required />
                 <button className={`${css.btn} ${css.btn_save_note}`}>Save</button>
               </form>
     } else {
