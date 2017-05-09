@@ -38,7 +38,7 @@ class NoteItem extends Component {
   }
 
   handleChecked = (id, done) => {
-    this.props.toggleCheck(id, done)
+    this.props.toggleCheck({id, done})
   }
 
   handleRemoveNote = (id) => {

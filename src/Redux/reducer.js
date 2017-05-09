@@ -16,7 +16,7 @@ export const noteReducer: Reducer<Array<Note>> = handleActions({
   UPDATE_REMOVE_NOTE: (state, {payload}) => state.filter((el) => el.id !== payload[0].id),
   UPDATE_ADD_NOTE: (state, {payload}) => [...state, payload],
   UPDATE_EDIT_NOTE: (state, {payload}) => state.map((note) => note.id !== payload[0].id ? note : ( note.message = payload[0].message, note)),
-  UPDATE_TOGGLE_CHECK: (state, {payload}) => state.map((note) => note.id !== payload.id ? note : (note.done = !payload.done, note)),
+  UPDATE_TOGGLE_CHECK: (state, {payload}) => state.map((note) => note.id !== payload.payload.id ? note : (note.done = !payload.payload.done, note)),
 }, [])
 
 export default combineReducers({

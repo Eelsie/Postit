@@ -2,7 +2,7 @@
 import React from 'react'
 import css from '../styles/create-note.css'
 
-const CreateNote = (props) => {
+const CreateNote = (props: Props) => {
 
   let inputText
 
@@ -18,7 +18,7 @@ const CreateNote = (props) => {
 
   return (
     <form className={css.notes} onSubmit={handleSubmit}>
-      <input className={css.notes_item} placeholder="Add a new note" ref={ el => inputText = el } />
+      <input className={css.notes_item} placeholder="Add a new note" ref={ el => inputText = el } autoFocus />
       <button className={css.btn}>Add</button>
     </form>
   )

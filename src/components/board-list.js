@@ -4,9 +4,12 @@ import BoardItem from './board-item'
 import CreateBoard from './create-board'
 import css from '../styles/App.css'
 
+import {board} from './types'
+import {note} from './types'
+
 type Props = {
-  boards: array,
-  notes: array,
+  boards: Array<board>,
+  notes: Array<note>,
   removeBoard: Function,
   removeNote: Function,
   handleAddBoard: Function,

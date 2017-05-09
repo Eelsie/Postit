@@ -14,10 +14,27 @@ import {removeNote} from '../redux/actions'
 import {removeBoard} from '../redux/actions'
 import {addNote} from '../redux/actions'
 
-
 import type {RootState} from '$src/root/types'
 import BoardList from './board-list'
 import css from '../styles/App.css'
+
+import {board} from './types'
+import {note} from './types'
+
+type Props = {
+  fetchBoards: Function,
+  fetchNotes: Function,
+  removeBoard: Function,
+  removeBoard: Function,
+  boards: Array<board>,
+  notes: Array<note>,
+  removeNote: Function,
+  addBoard: Function,
+  addNote: Function,
+  editNote: Function,
+  editBoard: Function,
+  toggleCheck: Function,
+}
 
 class App extends Component {
   props: Props

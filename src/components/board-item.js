@@ -6,13 +6,19 @@ import css from '../styles/board-item.css'
 
 type Props = {
   removeBoard: Function,
+  removeNote: Function,
   handleAddNote: Function,
   editNote: Function,
   editBoard: Function,
   toggleCheck: Function,
+  addNote: Function,
   id: number,
-  notes: Array,
+  notes: Array<mixed>,
   name: string,
+  boardId: number,
+  inputText: string,
+  e: mixed,
+
 }
 
 class BoardItem extends Component {
