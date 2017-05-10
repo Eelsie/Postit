@@ -29,7 +29,7 @@ function* fetchNotes(): Generator<> {
   yield put(receiveNotes(notes))
 }
 
-function* removeNote(payload): Generator<> {
+function* removeNote(payload: Object): Generator<> {
   const response = yield fetch(`http://localhost:1337/notes/${payload.payload}`, {
     method: 'DELETE',
   })
@@ -38,7 +38,7 @@ function* removeNote(payload): Generator<> {
   yield put(updateRemoveNote(note))
 }
 
-function* removeBoard(payload): Generator<> {
+function* removeBoard(payload: Object): Generator<> {
   const response = yield fetch(`http://localhost:1337/boards/${payload.payload}`, {
     method: 'DELETE',
   })
@@ -47,7 +47,7 @@ function* removeBoard(payload): Generator<> {
   yield put(updateRemoveBoard(board))
 }
 
-function* addNote(payload): Generator<> {
+function* addNote(payload: Object): Generator<> {
   const response = yield fetch(`http://localhost:1337/notes/${payload.payload.boardId}`, {
     method: 'POST',
     body: JSON.stringify({'message': payload.payload.message, 'boardId': payload.payload.boardId, 'done': false}),
@@ -57,7 +57,7 @@ function* addNote(payload): Generator<> {
   yield put(reset('newNote'))
 }
 
-function* addBoard(payload): Generator<> {
+function* addBoard(payload: Object): Generator<> {
   const response = yield fetch(`http://localhost:1337/boards/`, {
     method: 'POST',
     body: JSON.stringify({'name': payload.payload}),
@@ -67,7 +67,7 @@ function* addBoard(payload): Generator<> {
   yield put(reset('newBoard'))
 }
 
-function* toggleCheck(payload): Generator<> {
+function* toggleCheck(payload: Object): Generator<> {
   yield fetch(`http://localhost:1337/notes/${payload.payload.id}`, {
     method: 'PUT',
     body: JSON.stringify({'done': !payload.payload.done}),
@@ -75,7 +75,7 @@ function* toggleCheck(payload): Generator<> {
   yield put(updateToggleCheck(payload))
 }
 
-function* editBoard(payload): Generator<> {
+function* editBoard(payload: Object): Generator<> {
   const response = yield fetch(`http://localhost:1337/boards/${payload.payload.id}`, {
     method: 'PUT',
     body: JSON.stringify({'name': payload.payload.text}),
@@ -84,7 +84,7 @@ function* editBoard(payload): Generator<> {
   yield put(updateEditBoard(board))
 }
 
-function* editNote(payload): Generator<> {
+function* editNote(payload: Object): Generator<> {
   const response = yield fetch(`http://localhost:1337/notes/${payload.payload.id}`, {
     method: 'PUT',
     body: JSON.stringify({'message': payload.payload.text}),

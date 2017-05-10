@@ -18,7 +18,6 @@ type Props = {
   notes: Array<Note>,
   name: string,
   boardId: number,
-  textInput: Object,
 }
 
 class BoardItem extends Component {
